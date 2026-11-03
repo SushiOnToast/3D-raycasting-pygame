@@ -120,5 +120,8 @@ class Ray:
             self.wall_hit_y = vertical_hit_y
             self.distance = vertical_distance
 
+        # here we get rid of fisheye effect by measuring the distance from the player's viewplane rather than the player itself
+        self.distance *= math.cos(self.player.rotation_angle - self.ray_angle)
+
     def render(self, screen):
         pygame.draw.line(screen, (255, 0, 0), (self.player.x, self.player.y), (self.wall_hit_x, self.wall_hit_y))
