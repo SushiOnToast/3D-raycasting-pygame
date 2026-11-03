@@ -18,17 +18,30 @@ class Raycaster:
 
             ray_angle += FOV / NUM_RAYS
 
-    def render(self, screen):
-        dist_to_projection_plane = (WINDOW_WIDTH / math.tan(FOV / 2))
+    def render(self, screen, topdown, viewport_width=None):
+        if viewport_width is None:
+            viewport_width = WINDOW_WIDTH
+
+        dist_to_projection_plane = viewport_width / (2 * math.tan(FOV / 2))
+
         i = 0
+
         for ray in self.rays:
-            # ray.render(screen)
 
-            # height of the wall on our projection, the wall height is currently set to TILESIZE but can be changed if needed
-            line_height = (TILESIZE / ray.distance) * dist_to_projection_plane
+            if topdown:
+                ray.render(screen)
 
-            draw_begin = (WINDOW_HEIGHT / 2) - (line_height / 2)
-            draw_end = line_height
-            pygame.draw.rect(screen, (ray.colour, ray.colour, ray.colour), (i*RES, draw_begin, RES, draw_end))
+            else:
+                line_height = (TILESIZE / ray.distance) * dist_to_projection_plane
+
+                draw_begin = (WINDOW_HEIGHT / 2) - (line_height / 2)
+                draw_end = draw_begin + line_height
+
+                pygame.draw.rect(
+                    screen,
+                    (ray.colour, ray.colour, ray.colour),
+                    (i * (viewport_width / NUM_RAYS), draw_begin,
+                    viewport_width / NUM_RAYS, line_height)
+                )
 
             i += 1

@@ -24,6 +24,6 @@ class Map:
                 tile_y = i * TILESIZE
 
                 colour = (255, 255, 255)
-                if self.grid[i][j] == 1:
+                if self.grid[i][j] == 0:
                     colour = (0, 0, 0)
-                pygame.draw.rect(screen, colour, (tile_x, tile_y, TILESIZE-1, TILESIZE-1))
+                pygame.draw.rect(screen, colour, (tile_x, tile_y, TILESIZE, TILESIZE))
