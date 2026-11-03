@@ -4,22 +4,16 @@ from settings import *
 class Map:
     def __init__(self):
         # Number 1 is a wall, 0 is an empty space
-        self.grid = [
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-            [1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        ]
+        self.grid = MAP
 
     def has_wall_at(self, x, y):
-        # this method checks whether there is wall where the players is or not
-        return self.grid[int(y // TILESIZE)][int(x // TILESIZE)]
+        map_x = int(x // TILESIZE)
+        map_y = int(y // TILESIZE)
+
+        if map_x < 0 or map_x >= len(self.grid[0]) or map_y < 0 or map_y >= len(self.grid):
+            return True
+
+        return self.grid[map_y][map_x] == 1
 
     def render(self, screen):
         # method to render the map

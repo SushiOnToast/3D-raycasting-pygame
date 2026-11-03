@@ -126,5 +126,9 @@ class Ray:
         # here we get rid of fisheye effect by measuring the distance from the player's viewplane rather than the player itself
         self.distance *= math.cos(self.player.rotation_angle - self.ray_angle)
 
+        # lighting effect
+        self.colour *= (60 / self.distance)
+        self.colour = min(self.colour, 255)
+
     def render(self, screen):
         pygame.draw.line(screen, (255, 0, 0), (self.player.x, self.player.y), (self.wall_hit_x, self.wall_hit_y))
