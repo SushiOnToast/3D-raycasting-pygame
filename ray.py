@@ -26,6 +26,7 @@ class Ray:
         self.wall_hit_y = 0
 
         self.distance = 0
+        self.colour = 255
 
     def cast(self):
         ## horizontal checking
@@ -37,7 +38,7 @@ class Ray:
         first_intersection_y = 0
 
         if self.is_facing_up:
-            first_intersection_y = ((self.player.y) // TILESIZE) * TILESIZE - 1
+            first_intersection_y = ((self.player.y) // TILESIZE) * TILESIZE - 0.01
         elif self.is_facing_down:
             first_intersection_y = ((self.player.y) // TILESIZE) * TILESIZE + TILESIZE
 
@@ -74,7 +75,7 @@ class Ray:
         if self.is_facing_right:
             first_intersection_x = ((self.player.x // TILESIZE) * TILESIZE) + TILESIZE
         elif self.is_facing_left:
-            first_intersection_x = ((self.player.x // TILESIZE) * TILESIZE) - 1
+            first_intersection_x = ((self.player.x // TILESIZE) * TILESIZE) - 0.01
 
         first_intersection_y = self.player.y + (first_intersection_x - self.player.x) * math.tan(self.ray_angle)
 
@@ -115,10 +116,12 @@ class Ray:
             self.wall_hit_x = horizontal_hit_x
             self.wall_hit_y = horizontal_hit_y
             self.distance = horizontal_distance
+            self.colour = 160
         else:
             self.wall_hit_x = vertical_hit_x
             self.wall_hit_y = vertical_hit_y
             self.distance = vertical_distance
+            self.colour = 255
 
         # here we get rid of fisheye effect by measuring the distance from the player's viewplane rather than the player itself
         self.distance *= math.cos(self.player.rotation_angle - self.ray_angle)
