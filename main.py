@@ -1,16 +1,7 @@
 import pygame
 from settings import *
-from map import Map
-from player import Player
-from raycaster import Raycaster
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
-map = Map()
-player = Player()
-raycaster = Raycaster(player, map)
-
-clock = pygame.time.Clock()
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
 while True:
     for event in pygame.event.get():
@@ -18,14 +9,7 @@ while True:
             pygame.quit()
             exit()
 
-    screen.fill("black")
-    raycaster.castAllRays()
 
-    map.render(screen)
-    player.render(screen)
-    player.update()
-
-    raycaster.render(screen)
+    screen.fill((0, 0, 0))
 
     pygame.display.update()
-    clock.tick(60)
